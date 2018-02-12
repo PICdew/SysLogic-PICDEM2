@@ -1,0 +1,48 @@
+/*********************************************************************************************************/
+/*Programme : compteur_led.c                                                                             */
+/*Description : Programme qui affiche un compteur binaire sur le PORTD et l'incrémente à chaque pression */
+/*sur le bouton S2                                                                                       */
+/*********************************************************************************************************/
+
+#include <p18f87j11.h>
+
+
+#define MIN 0
+#define MAX 1000
+
+
+void main(void)
+{
+
+	unsigned int H=(MIN+MAX)/2;
+	
+	TRISA = 0xFF;		/*PORTA en entré*/
+	TRISD = 0x00;		/*PORTC en sortie*/
+
+	PORTD = 0x00;		//initialise le compteur
+	
+	unsigned char old_bt;
+	unsigned char bt;
+	
+	while(1)
+		{
+			while(etat==0)
+			{
+				etat=0;
+				
+				
+				if((PORTB & 0x01) == 0x00) //detecte pression S1
+					{
+						etat=1;
+					}
+				
+			for(i=0;i<1000;i++);
+			}
+		if(etat==1)
+			{
+				PORTD += 1; //icrémente le compteur
+				etat=0;
+				while((PORTB & 0x01) == 0x00){for(i=0;i<100;i++);}
+			}
+		}
+}
